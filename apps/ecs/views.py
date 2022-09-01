@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from apps.ecs.models import Ecs
 from apps.ecs import paginations as ecs_per
 from apps.ecs import filters
+from uuid import uuid4
 
 
 class EcsViewSet(mixins.ListModelMixin,
@@ -24,5 +25,12 @@ class EcsViewSet(mixins.ListModelMixin,
     def get_serializer_class(self):
         if self.action == 'list':
             return ecs_ser.EcsListSerializer
+        if self.action == "create":
+            return ecs_ser.EcsCreateSerializer
 
+    def perform_create(self, serializer):
+        task_id = str(uuid4()).replace("-", "")
+        # celery_create_ecs_task.delay(task_id,self.request.user.id,oss_path)
+        return {"task_id": task_id}
 
+        # serializer.save()
