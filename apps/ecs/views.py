@@ -10,6 +10,7 @@ from apps.ecs import filters
 from uuid import uuid4
 
 from utils.oss import upload_file
+from apps.ecs.tasks import celery_create_ecs_task
 
 
 class EcsViewSet(mixins.ListModelMixin,
@@ -31,11 +32,10 @@ class EcsViewSet(mixins.ListModelMixin,
             return ecs_ser.EcsCreateSerializer
 
     def perform_create(self, serializer):
-        task_id = str(uuid4()).replace("-", "")
-        # celery_create_ecs_task.delay(task_id,self.request.user.id,oss_path)
-        return {"task_id": task_id}
+        batch_id = str(uuid4()).replace("-", "")
+        celery_create_ecs_task.delay(batch_id, serializer.data['spce_path'], self.request.user.id)
+        return {"batch_id": batch_id}
 
-        # serializer.save()
 
 
 # 文件上传
@@ -45,7 +45,6 @@ class FileViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-
         file_obj = serializer.validated_data.get('file')
         url = upload_file(file_obj=file_obj, user_id=self.request.user.id)
 
