@@ -183,3 +183,4 @@ else:
 STATIC_URL = "/static/"
 
 CELERY_BROKER_URL = "redis://:foobared@127.0.0.1:6379/0"
+REDIS_URI = "redis://:foobared@127.0.0.1:6379/1"

@@ -9,8 +9,10 @@ from apps.ecs import paginations as ecs_per
 from apps.ecs import filters
 from uuid import uuid4
 
+from common.validate import MyValidationError
 from utils.oss import upload_file
 from apps.ecs.tasks import celery_create_ecs_task
+from utils.redis_client import rds
 
 
 class EcsViewSet(mixins.ListModelMixin,
@@ -32,10 +34,21 @@ class EcsViewSet(mixins.ListModelMixin,
             return ecs_ser.EcsCreateSerializer
 
     def perform_create(self, serializer):
+        # todo 这个分布式锁可以做全局封装
+
+        request_id = serializer.data['request_id']
+
+        if not rds.setnx(request_id, request_id):
+            raise MyValidationError("请勿重复请求")
+        else:
+            # 10s过期 防止redis炸
+            rds.expire(request_id, 10)
+
         batch_id = str(uuid4()).replace("-", "")
         celery_create_ecs_task.delay(batch_id, serializer.data['spce_path'], self.request.user.id)
-        return {"batch_id": batch_id}
 
+        # rds.delete(request_id)
+        return {"batch_id": batch_id}
 
 
 # 文件上传

@@ -21,6 +21,12 @@ class EcsCreateSerializer(serializers.Serializer):
                                           "required": "该字段必传",
                                           "allow_blank": "该字段必填"
                                       })
+    request_id = serializers.CharField(help_text='请求的uuid', max_length=32, required=True, allow_blank=False,
+                                       error_messages={
+                                           "max_length": "最大长度不应该超过32个字符",
+                                           "required": "该字段必传",
+                                           "allow_blank": "该字段必填"
+                                       })
 
     def validate(self, attrs):
         spec_data = read_spec_from_oss(attrs['spce_path'])
