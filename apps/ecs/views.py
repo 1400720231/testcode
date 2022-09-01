@@ -39,7 +39,7 @@ class EcsViewSet(mixins.ListModelMixin,
         request_id = serializer.data['request_id']
 
         if not rds.setnx(request_id, request_id):
-            raise MyValidationError("请勿重复请求")
+            raise MyValidationError("请勿重复创建")
         else:
             # 10s过期 防止redis炸
             rds.expire(request_id, 10)

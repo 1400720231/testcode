@@ -14,8 +14,8 @@ import os
 import sys
 import datetime
 
+env = os.getenv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import environs
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,10 +23,10 @@ sys.path.insert(0, os.path.join(BASE_DIR, "apps/"))
 sys.path.insert(0, os.path.join(BASE_DIR, "utils/"))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-env = environs.Env()
-env.read_env(os.path.join(BASE_DIR, '.env'))
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o46k0xb@pm!4t%e=y%d_bjdhzw&==+k$6m8-+9y_d49h*c_-hz'
+SECRET_KEY =env("SECRET_KEY", "o46k0xb@pm!4t%e=y%d_bjdhzw&==+k$6m8-+9y_d49h*c_-hz")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -161,13 +161,13 @@ CORS_ALLOW_HEADERS = (
     "Pragma",
 )
 
-PREFIX = env.str('PREFIX')
-END_POINT = env.str('END_POINT')  # OSS存储节点
-BUCKET_NAME = env.str('BUCKET_NAME')
-MEDIA_URL_ALIYUN = 'https://' + BUCKET_NAME + '.' + END_POINT + '/'
+PREFIX = env("PREFIX", "")
+END_POINT = env("END_POINT", "")  # OSS存储节点
+BUCKET_NAME = env("BUCKET_NAME", "")
+MEDIA_URL_ALIYUN = 'https://' + env("END_POINT", "") + '.' + env("BUCKET_NAME", "") + '/'
 # 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。
-ACCESS_KEY_ID = env.str('ACCESS_KEY_ID')
-ACCESS_KEY_SECRET = env.str('ACCESS_KEY_SECRET')
+ACCESS_KEY_ID = env("ACCESS_KEY_ID", "")
+ACCESS_KEY_SECRET = env("ACCESS_KEY_SECRET", "")
 
 LANGUAGE_CODE = "zh-Hans"
 TIME_ZONE = "Asia/Shanghai"  # 上海时区
@@ -182,5 +182,5 @@ else:
 
 STATIC_URL = "/static/"
 
-CELERY_BROKER_URL = "redis://:foobared@127.0.0.1:6379/0"
-REDIS_URI = "redis://:foobared@127.0.0.1:6379/1"
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", "redis://:foobared@127.0.0.1:6379/0")
+REDIS_URI = env("REDIS_URI", "redis://:foobared@127.0.0.1:6379/1")
