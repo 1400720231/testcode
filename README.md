@@ -10,7 +10,7 @@
 
 >在与manage.py下的同级目录下执行
 
-![本地跑celery](./examples/read-images/celery-run-in-locak.png)
+![本地跑celery](./examples/read-images/celery-run-in-local.png)
 
 
 ## 1.2-docker 启动
