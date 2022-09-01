@@ -8,17 +8,21 @@
 
 ```
 
+>在与manage.py下的同级目录下执行
+
+![本地跑celery](./examples/read-images/celery-run-in-locak.png)
+
+
 ## 1.2-docker 启动
 
 ```shell
 docker build -t testcode-celery -f ./CeleryDcokerfile .
 docker run testcode-celery 
 ```
-
 >在与manage.py下的同级目录下执行
+
 ![docker跑celery](./examples/read-images/celery-run-in-docker.png)
 >因为代码中有redis使用所以报错是应该的，如果你本地跑自己传环境变量就好
->在与manage.py下的同级目录下执行
 
 # 2-uwsgi 启动
 
@@ -37,10 +41,10 @@ docker build . -t  testcode
 docker run testcode -p 8080:8080
 ```
 >在与manage.py下的同级目录下执行
+
 ![docker跑uwsgi](./examples/read-images/uwsgi-run-in-docker.png)
 >django本地docker跑起来是没问题的因为直接用的sqlite
-> 
-> 
+
 
 # 3-k8s启动
 
@@ -76,13 +80,8 @@ lifecycle:
 >登陆获取jwt
 
 
-
-
-
-
-
->![上传配置文件](./examples/read-images/upload-oss.png)
-前端先上传配置文件获取oss 地址
+![上传配置文件](./examples/read-images/upload-oss.png)
+>前端先上传配置文件获取oss 地址
 
 
 
