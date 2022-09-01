@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import sys
 import datetime
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import environs
 
@@ -31,7 +32,6 @@ SECRET_KEY = 'o46k0xb@pm!4t%e=y%d_bjdhzw&==+k$6m8-+9y_d49h*c_-hz'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -81,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'testcode.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -91,7 +90,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -183,3 +181,5 @@ else:
     STATIC_ROOT = "staticfiles"
 
 STATIC_URL = "/static/"
+
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
