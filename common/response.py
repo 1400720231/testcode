@@ -11,7 +11,7 @@ class MyResponse(Response):
         exception=False,
         content_type=None,
     ):
-        print(status)
+        print("dasdasdsadß",status)
         data = {"code": 200, "status": "success", "message": "获取数据成功", "data": data}
         super().__init__(
             data=data,

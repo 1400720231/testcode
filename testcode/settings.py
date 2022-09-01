@@ -14,13 +14,16 @@ import os
 import sys
 import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import environs
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 sys.path.insert(0, os.path.join(BASE_DIR, "apps/"))
 sys.path.insert(0, os.path.join(BASE_DIR, "utils/"))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
+env = environs.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o46k0xb@pm!4t%e=y%d_bjdhzw&==+k$6m8-+9y_d49h*c_-hz'
 
@@ -133,7 +136,7 @@ if not DEBUG:
 JWT_AUTH = {
     "JWT_EXPIRATION_DELTA": datetime.timedelta(days=30),
     # 自定义header = {'Authenticate':'JWT jwt-token'}中的这个JWT参数，这里我没改
-    "JWT_AUTH_HEADER_PREFIX": "",
+    "JWT_AUTH_HEADER_PREFIX": "JWT",
 }
 
 # 跨域增加忽略
@@ -159,6 +162,14 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
     "Pragma",
 )
+
+PREFIX = env.str('PREFIX')
+END_POINT = env.str('END_POINT')  # OSS存储节点
+BUCKET_NAME = env.str('BUCKET_NAME')
+MEDIA_URL_ALIYUN = 'https://' + BUCKET_NAME + '.' + END_POINT + '/'
+# 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。
+ACCESS_KEY_ID = env.str('ACCESS_KEY_ID')
+ACCESS_KEY_SECRET = env.str('ACCESS_KEY_SECRET')
 
 LANGUAGE_CODE = "zh-Hans"
 TIME_ZONE = "Asia/Shanghai"  # 上海时区

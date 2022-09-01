@@ -7,6 +7,8 @@ from apps.user import views as user_view
 router = DefaultRouter(trailing_slash=False)
 # ecs
 router.register(r'ecs', ecs_view.EcsViewSet, basename='ecs')
+router.register('file', ecs_view.FileViewSet, basename="file")  # 文件上传
+
 # user
 router.register(r'login', user_view.LoginViewSet, basename='login')
 router.register(r'user', user_view.UserViewSet, basename='user')

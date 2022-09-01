@@ -6,7 +6,7 @@ class MyValidationError(APIException):
     raise MyValidationError(detail="验证码过期",code=600)
     """
 
-    status_code = 600
+    status_code = 200
     default_detail = "Invalid input."
     default_code = "invalid"
 

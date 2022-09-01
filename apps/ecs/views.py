@@ -9,6 +9,8 @@ from apps.ecs import paginations as ecs_per
 from apps.ecs import filters
 from uuid import uuid4
 
+from utils.oss import upload_file
+
 
 class EcsViewSet(mixins.ListModelMixin,
                  mixins.CreateModelMixin,
@@ -34,3 +36,16 @@ class EcsViewSet(mixins.ListModelMixin,
         return {"task_id": task_id}
 
         # serializer.save()
+
+
+# 文件上传
+class FileViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = ecs_ser.FileCreateSerializer
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        file_obj = serializer.validated_data.get('file')
+        url = upload_file(file_obj=file_obj, user_id=self.request.user.id)
+
+        return {"url": url}
