@@ -47,7 +47,7 @@ class EcsViewSet(mixins.ListModelMixin,
         batch_id = str(uuid4()).replace("-", "")
         celery_create_ecs_task.delay(batch_id, serializer.data['spce_path'], self.request.user.id)
 
-        # rds.delete(request_id)
+        rds.delete(request_id)
         return {"batch_id": batch_id}
 
 
