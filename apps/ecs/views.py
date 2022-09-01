@@ -15,9 +15,9 @@ from utils.oss import upload_file
 class EcsViewSet(mixins.ListModelMixin,
                  mixins.CreateModelMixin,
                  viewsets.GenericViewSet):
-    authentication_classes = []  # JSONWebTokenAuthentication
+    authentication_classes = [JSONWebTokenAuthentication]  #
     pagination_class = ecs_per.PageNumberPagination
-    permission_classes = []  # IsAuthenticated
+    permission_classes = [IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
     filterset_class = filters.Ecs
 
@@ -45,6 +45,7 @@ class FileViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
+
         file_obj = serializer.validated_data.get('file')
         url = upload_file(file_obj=file_obj, user_id=self.request.user.id)
 

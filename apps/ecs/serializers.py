@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from apps.ecs import models as md
 from common.validate import MyValidationError
+from utils.oss import read_spec_from_oss
 
 User = get_user_model()
 
@@ -22,7 +23,9 @@ class EcsCreateSerializer(serializers.Serializer):
                                       })
 
     def validate(self, attrs):
-        if 1:
+        spec_data = read_spec_from_oss(attrs['spce_path'])
+        # 伪代码 假装做格式校验
+        if "xiongyao" in spec_data:
             raise MyValidationError("配置文件错误")
 
         return attrs
@@ -37,5 +40,3 @@ class FileCreateSerializer(serializers.Serializer):
                                      "required": "该字段必传",
                                      "allow_blank": "该字段必填"
                                  })
-
-

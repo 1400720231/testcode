@@ -4,6 +4,7 @@ from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
 from apps.ecs import views as ecs_view
 from apps.user import views as user_view
+
 router = DefaultRouter(trailing_slash=False)
 # ecs
 router.register(r'ecs', ecs_view.EcsViewSet, basename='ecs')

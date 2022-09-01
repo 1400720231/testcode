@@ -1,3 +1,6 @@
+import json
+import datetime
+
 import oss2
 import time
 import hashlib
@@ -18,7 +21,10 @@ def upload_file(user_id='', file_obj=None):
     bucket = oss2.Bucket(auth, settings.END_POINT, settings.BUCKET_NAME)
     suffix = file_obj.name.split('.')[1]  # 文件后缀名字
     # 生成一个唯一文件名
-    filename = f'{user_id}.{suffix}'
+    year = str(datetime.datetime.now().year)
+    month = str(datetime.datetime.now().month)
+    day = str(datetime.datetime.now().day)
+    filename = f'{year}/{month}/{day}/{user_id}.{suffix}'
     # 还有后缀没有处理，比如.png .pdf具体用到再处理
     res = bucket.put_object(filename, file_obj.file)
     if res.status == 200:
@@ -28,10 +34,14 @@ def upload_file(user_id='', file_obj=None):
         return None
 
 
-def read_from_oss(oss_path=""):
+def read_spec_from_oss(oss_path=""):
     """
 
     :param oss_path: 阿里云oss path
     :return:
     """
-    return {}
+    auth = oss2.Auth(settings.ACCESS_KEY_ID, settings.ACCESS_KEY_SECRET)
+    bucket = oss2.Bucket(auth, settings.END_POINT, settings.BUCKET_NAME)
+    data = bucket.get_object(oss_path)
+
+    return [i.decode("utf-8").strip("\n") for i in data]
