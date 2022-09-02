@@ -165,9 +165,9 @@ class Ecs2ViewSet(mixins.ListModelMixin,
                             "memory": str(total_serverA.get("memory")) + "Mi",
                             "disk": str(total_serverA.get("disk")) + "Gb"
                             },
-                "serverB": {"cpu": str(total_serverA.get("cpu")) + "核",
-                            "memory": str(total_serverA.get("memory")) + "Mi",
-                            "disk": str(total_serverA.get("disk")) + "Gb"
+                "serverB": {"cpu": str(total_serverB.get("cpu")) + "核",
+                            "memory": str(total_serverB.get("memory")) + "Mi",
+                            "disk": str(total_serverB.get("disk")) + "Gb"
                             }
                 }
 
