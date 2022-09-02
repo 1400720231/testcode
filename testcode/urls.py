@@ -7,12 +7,10 @@ from apps.user import views as user_view
 
 router = DefaultRouter(trailing_slash=False)
 # ecs
-router.register(r'ecs', ecs_view.EcsViewSet, basename='ecs')
-router.register('file', ecs_view.FileViewSet, basename="file")  # 文件上传
-
+router.register(r'ecs2', ecs_view.Ecs2ViewSet, basename='ecs2')  # 用本地文件创建虚拟机
+router.register('upload', ecs_view.UploadViewSet, basename="upload")  # 文件上传到本地磁盘
 # user
 router.register(r'login', user_view.LoginViewSet, basename='login')
-router.register(r'user', user_view.UserViewSet, basename='user')
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'api/v1/', include(router.urls)),

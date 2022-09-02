@@ -26,7 +26,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, "utils/"))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =env("SECRET_KEY", "o46k0xb@pm!4t%e=y%d_bjdhzw&==+k$6m8-+9y_d49h*c_-hz")
+SECRET_KEY = env("SECRET_KEY", "o46k0xb@pm!4t%e=y%d_bjdhzw&==+k$6m8-+9y_d49h*c_-hz")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -184,3 +184,5 @@ STATIC_URL = "/static/"
 
 CELERY_BROKER_URL = env("CELERY_BROKER_URL", "redis://:foobared@127.0.0.1:6379/0")
 REDIS_URI = env("REDIS_URI", "redis://:foobared@127.0.0.1:6379/1")
+
+UPLOAD_PATH = os.path.join(BASE_DIR, "uploads/")

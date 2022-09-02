@@ -35,6 +35,20 @@ class EcsCreateSerializer(serializers.Serializer):
             raise MyValidationError("配置文件错误")
 
         return attrs
+# 创建服务器资源表单
+class Ecs2CreateSerializer(serializers.Serializer):
+    spce_path = serializers.CharField(help_text='配置文件的oss path', max_length=256, required=True, allow_blank=False,
+                                      error_messages={
+                                          "max_length": "最大长度不应该超过256个字符",
+                                          "required": "该字段必传",
+                                          "allow_blank": "该字段必填"
+                                      })
+    request_id = serializers.CharField(help_text='请求的uuid', max_length=32, required=True, allow_blank=False,
+                                       error_messages={
+                                           "max_length": "最大长度不应该超过32个字符",
+                                           "required": "该字段必传",
+                                           "allow_blank": "该字段必填"
+                                       })
 
 
 # 文件上传
