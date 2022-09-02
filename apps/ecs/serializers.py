@@ -50,7 +50,13 @@ class Ecs2CreateSerializer(serializers.Serializer):
                                            "allow_blank": "该字段必填"
                                        })
 
+    def validate(self, attrs):
 
+        # 伪代码 假装做格式校验
+        if "xiongyao" in ["xxx"]:
+            raise MyValidationError("配置文件错误")
+
+        return attrs
 # 文件上传
 class FileCreateSerializer(serializers.Serializer):
     file = serializers.FileField(help_text="上传文件对象", required=True,

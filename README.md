@@ -101,3 +101,67 @@ lifecycle:
 
 ![因为网络问题导致创建虚拟机资源重复请求](./examples/read-images/repeated-create-esc.png)
 >点击提交创建虚拟机资源重复情况
+
+
+
+![新版根据本地磁盘文件上传配置](./examples/read-images/img.png)
+
+
+```text
+{
+    "code": 200,
+    "status": "success",
+    "message": "获取数据成功",
+    "data": {
+        "batch_id": "87e6ff22229b495c8cbc4b7124865a45",
+        "highest_score": 79,
+        "detail": {
+            "serverA": [
+                "22,AMD 2v Core,8Gi,250Gb",
+                "3,Intel 1v Core,4Gi,250Gb",
+                "2,AMD 8v Core,2Gi,2Tb",
+                "28,AMD 2v Core,8Gi,40Gb",
+                "20,AMD 8v Core,500Mi,40Gb",
+                "24,Intel 8v Core,4Gi,100Gb",
+                "27,AMD 1v Core,1Gi,1Tb",
+                "11,AMD 8v Core,500Mi,1Tb",
+                "10,AMD 2v Core,4Gi,500Gb",
+                "29,Intel 8v Core,500Mi,40Gb",
+                "14,AMD 8v Core,500Mi,500Gb",
+                "12,AMD 1v Core,4Gi,100Gb",
+                "17,Intel 2v Core,1Gi,40Gb",
+                "4,Intel 8v Core,1Gi,40Gb",
+                "25,AMD 2v Core,4Gi,40Gb",
+                "13,Intel 4v Core,500Mi,40Gb",
+                "15,Intel 2v Core,500Mi,100Gb",
+                "26,Intel 4v Core,500Mi,250Gb",
+                "6,Intel 2v Core,500Mi,1Tb",
+                "21,AMD 8v Core,2Gi,500Gb",
+                "7,Intel 8v Core,500Mi,2Tb",
+                "30,Intel 4v Core,2Gi,2Tb",
+                "1,Intel 8v Core,2Gi,1Tb",
+                "8,AMD 8v Core,4Gi,250Gb",
+                "18,Intel 2v Core,4Gi,2Tb",
+                "9,Intel 4v Core,4Gi,100Gb",
+                "23,AMD 2v Core,2Gi,500Gb",
+                "5,Intel 8v Core,8Gi,2Tb"
+            ],
+            "serverB": [
+                "19,AMD 2v Core,4Gi,40Gb",
+                "16,AMD 1v Core,4Gi,500Gb"
+            ]
+        },
+        "serverA": {
+            "cpu": "133核",
+            "memory": "75156Mi",
+            "disk": "18016Gb"
+        },
+        "serverB": {
+            "cpu": "133核",
+            "memory": "75156Mi",
+            "disk": "18016Gb"
+        }
+    }
+}
+```
+>创建虚拟机资源返回结果json
